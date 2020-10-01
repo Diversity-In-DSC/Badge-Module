@@ -17,6 +17,11 @@ canvas {
   grid-template-columns: auto 30px;
   justify-content: center;
 }
+.container{
+  background-repeat:no-repeat;
+  background-position: center;
+  background-image : url("https://developers.google.com/site-assets/images/home/google_developers_logo.png");
+}
 .slider {
   display: none;
 }
