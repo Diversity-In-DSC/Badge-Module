@@ -5,8 +5,11 @@ var canvas = document.getElementById("canvas");
 let frame = document.getElementById("frame");
 var ctx = canvas.getContext("2d");
 let status = document.querySelector("p");
+let heightSlider = document.querySelector("#heightSlider");
+let widthSlider = document.querySelector("#widthSlider");
 let Im;
 let img;
+let deltaX, deltaY;
 async function load() {
   model = await blazeface.load();
   status.innerHTML = "Model Loaded";
@@ -55,9 +58,10 @@ async function run() {
 
   console.log(width * height);
   status.innerHTML = "Adjusting";
-  let deltaX = canvas.width / 2 - faceCenterX;
-  let deltaY = canvas.height / 2 - faceCenterY;
+  deltaX = canvas.width / 2 - faceCenterX;
+  deltaY = canvas.height / 2 - faceCenterY;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ctx.drawImage(bg, 0, 0, canvas.width, canvas.height * 1.05);
   ctx.drawImage(
     Im,
     deltaX,
@@ -65,8 +69,40 @@ async function run() {
     canvas.width,
     canvas.width * (Im.height / Im.width)
   );
-  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height * 1.05);
+  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
   status.innerHTML = "Done";
+  document.getElementById("manual-button").style.display = "block";
 }
 
 load();
+
+function manual() {
+  heightSlider.style.display = "block";
+  widthSlider.style.display = "block";
+  render();
+}
+
+heightSlider.oninput = function () {
+  dY = parseFloat(this.value);
+  deltaY = dY;
+};
+widthSlider.oninput = function () {
+  dX = parseFloat(this.value);
+  deltaX = dX;
+};
+
+function render() {
+  requestAnimationFrame(render);
+  ctx.drawImage(
+    Im,
+    deltaX,
+    deltaY,
+    canvas.width,
+    canvas.width * (Im.height / Im.width)
+  );
+  // console.log(deltaX, deltaY);
+  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height * 1.05);
+  setTimeout(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }, 100);
+}
