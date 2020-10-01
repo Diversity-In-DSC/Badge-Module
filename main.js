@@ -36,11 +36,55 @@ async function load() {
       }, 500);
     };
     Im.src = src;
+
+    // weird
+
+    // Im = new Image();
+    // Im.onload = function () {
+    //   // set size proportional to image
+    //   canvas.height = canvas.width * (Im.height / Im.width);
+
+    //   // step 1 - resize to 50%
+    //   var oc = document.createElement("canvas"),
+    //     octx = oc.getContext("2d");
+
+    //   oc.width = Im.width * 0.5;
+    //   oc.height = Im.height * 0.5;
+    //   octx.drawImage(Im, 0, 0, oc.width, oc.height);
+
+    //   // step 2
+    //   octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+
+    //   // step 3, resize to final size
+    //   ctx.drawImage(
+    //     oc,
+    //     0,
+    //     0,
+    //     oc.width * 0.5,
+    //     oc.height * 0.5,
+    //     0,
+    //     0,
+    //     canvas.width,
+    //     canvas.height
+    //   );
+    //   img.src = canvas.toDataURL();
+    //   status.innerHTML = "Image Loaded";
+    //   setTimeout(() => {
+    //     run();
+    //   }, 500);
+    // };
+    // Im.src = src;
   });
 }
 
 async function run() {
   let res = await model.estimateFaces(document.getElementById("tp"), false);
+
+  if (res.length == 0) {
+    status.innerHTML = "Can't find Your Face";
+    document.getElementById("manual-button").style.display = "block";
+  }
+
   res = res[0];
 
   //   res.landmarks.forEach((pos) => {
