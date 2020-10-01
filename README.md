@@ -10,12 +10,12 @@
   <p align="center">
     An AI vision based Badge Module!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Register for DSC WOW »</strong></a>
+    <a href="/"><strong>Register for DSC WOW »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://diversity-in-dsc.github.io/Badge-Module/">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
   </p>
 </p>
 
