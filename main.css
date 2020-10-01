@@ -31,3 +31,21 @@ canvas {
   writing-mode: bt-lr; /* IE */
   -webkit-appearance: slider-vertical; /* WebKit */
 }
+.load{
+  background-color:black;
+  color: white;
+  cursor: pointer;
+}
+  
+#manual-button{
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  border: 0.5px solid black;
+  
+}
