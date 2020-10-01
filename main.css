@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+canvas {
+  width: 500px;
+  margin: auto;
+  max-width: 80%;
+}
+
+.holder {
+  display: grid;
+  grid-template-columns: auto 30px;
+  justify-content: center;
+}
+.slider {
+  display: none;
+}
+
+#heightSlider {
+  transform: rotate(180deg);
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+}

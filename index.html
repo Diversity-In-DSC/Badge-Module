@@ -3,25 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Badger.JS</title>
-    <style>
-      canvas {
-        width: 500px;
-        max-width: 80%;
-      }
-    </style>
+    <title>Badge Maker</title>
+    <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
+    <div class="container">
+      <div class="holder">
+        <canvas id="canvas" width="1080" height="1080"></canvas>
+        <input
+          type="range"
+          min="-1000"
+          max="1000"
+          value="0"
+          class="slider"
+          id="heightSlider"
+          orient="vertical"
+        />
+        <input
+          type="range"
+          min="-1000"
+          max="1000"
+          value="0"
+          class="slider"
+          id="widthSlider"
+        />
+      </div>
+      <p>Status</p>
+      <input type="file" id="file-selector" accept=".jpg, .jpeg, .png" />
+      <button onclick="manual()" style="display: none" id="manual-button">
+        Let me DO THAT
+      </button>
+    </div>
     <img src="attendee.png" alt="" id="frame" hidden />
-    <canvas id="canvas" width="6000" height="4376"></canvas>
-    <div id="container"></div>
-    <input type="file" id="file-selector" accept=".jpg, .jpeg, .png" />
-    <img id="tp" style="display: none" />
-    <p>Status</p>
+    <img id="tp" hidden />
   </body>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
-  <script src="badger.js"></script>
+  <!-- <script src="badge.js"></script> -->
   <script src="main.js"></script>
 </html>
