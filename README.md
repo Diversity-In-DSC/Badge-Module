@@ -1,22 +1,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="/">
-    <img src="assets/logo.png" alt="Logo" width="80" height="80">
-  </a>
+	<a href="/">
+		<img src="assets/logo.png" alt="Logo" width="80" height="80">
+	</a>
 
-  <h3 align="center">Badge Generator for DSC WOW</h3>
+    <h3 align="center">Badge Generator for DSC WOW</h3>
 
-  <p align="center">
-    An AI vision based Badge Module!
-    <br />
-    <a href="/"><strong>Register for DSC WOW »</strong></a>
-    <br />
-    <br />
-    <a href="https://diversity-in-dsc.github.io/Badge-Module/">View Demo</a>
-    ·
-    <a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
-  </p>
+    <p align="center">
+    	An AI vision based Badge Module!
+    	<br />
+    	<a href="/"><strong>Register for DSC WOW »</strong></a>
+    	<br />
+    	<br />
+    	<a href="https://diversity-in-dsc.github.io/Badge-Module/">View Demo</a>
+    	·
+    	<a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
+    </p>
+
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -25,10 +26,10 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
-  - [Built With](#built-with)
+	- [Built With](#built-with)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
 - [Usage](#usage)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
