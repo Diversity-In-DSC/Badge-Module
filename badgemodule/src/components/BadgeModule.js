@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "@tensorflow/tfjs-backend-cpu";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import frame from "../frame.png";
 
 const blazeface = require("@tensorflow-models/blazeface");
 
@@ -73,7 +74,20 @@ const BadgeModule = () => {
     );
 
     // As Base64 string
-    setFile(canvas.toDataURL("image/jpeg"));
+    // setFile();
+    setReady(false);
+
+    let badge = document.getElementById("badge");
+    let badgectx = badge.getContext("2d");
+    let frame = document.getElementById("frame");
+
+    let img = new Image();
+
+    img.onload = () => {
+      badgectx.drawImage(frame, 0, 0, badge.width, badge.height);
+      badgectx.drawImage(img, 125, 90, 150, 150);
+    };
+    img.src = canvas.toDataURL("image/jpeg");
 
     // As a blob
   };
@@ -82,10 +96,12 @@ const BadgeModule = () => {
     <center>
       <h4>Status : {status}</h4>
 
+      <canvas id="badge" width="400" height="400"></canvas>
+
       {loaded && <input type="file" accept="image/*" onChange={handleFile} />}
       {ready && (
         <div>
-          <div style={{ maxWidth: "400px", width: "80vw" }}>
+          <div style={{ maxWidth: "450px", width: "80vw" }}>
             <ReactCrop
               onImageLoaded={setImage}
               src={file}
@@ -102,7 +118,7 @@ const BadgeModule = () => {
           alt="temp"
           id="temp-image"
           style={{
-            maxWidth: "400px",
+            maxWidth: "450px",
             width: "80vw",
             opacity: 0,
             position: "absolute",
@@ -111,6 +127,7 @@ const BadgeModule = () => {
           }}
         />
       )}
+      <img src={frame} id="frame" alt="" hidden />
     </center>
   );
 };
