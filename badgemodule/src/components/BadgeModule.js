@@ -1,39 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "@tensorflow/tfjs-backend-cpu";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 const blazeface = require("@tensorflow-models/blazeface");
 
-class BadgeModule extends React.Component {
-  constructor(props) {
-    super(props);
+const BadgeModule = () => {
+  const [status, setStatus] = useState("Loading Model");
+  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [file, setFile] = useState(null);
+  const [crop, setCrop] = useState(null);
+  const [image, setImage] = useState(null);
+  let model;
 
-    this.state = {
-      model: null,
-      status: "Loading Model",
-      loaded: false,
-      file: null,
-      ready: false,
-      crop: null,
-    };
+  load();
+
+  async function load() {
+    model = await blazeface.load();
+    setStatus("Model Loaded");
+    setLoaded(true);
   }
 
-  componentDidMount = async () => {
-    let model = await blazeface.load();
+  function handleFile(e) {
+    setFile(URL.createObjectURL(e.target.files[0]));
 
-    this.setState({ status: "Model Loaded", loaded: true, model: model });
-  };
-
-  handleFile = (e) => {
-    this.setState({ file: URL.createObjectURL(e.target.files[0]) });
     setTimeout(() => {
-      this.run();
+      run();
     }, 100);
-  };
+  }
 
-  run = async () => {
-    let results = await this.state.model.estimateFaces(
+  async function run() {
+    let results = await model.estimateFaces(
       document.querySelector("#temp-image"),
       false
     );
@@ -41,56 +39,80 @@ class BadgeModule extends React.Component {
     let x = parseFloat(result.topLeft[0]) - 50;
     let y = parseFloat(result.topLeft[1]) - 50;
     console.log(x, y);
-    this.setState({
-      crop: {
-        x: x,
-        y: y,
-        aspect: 1,
-        width: 200,
-        height: 200,
-      },
-      ready: true,
+    setCrop({
+      x: x,
+      y: y,
+      aspect: 1,
+      width: 200,
+      height: 200,
     });
+
+    setReady(true);
     console.log(result);
+  }
+
+  const getCroppedImg = () => {
+    setReady(false);
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    // As Base64 string
+    setFile(canvas.toDataURL("image/jpeg"));
+
+    // As a blob
   };
 
-  render = () => {
-    return (
-      <center>
-        <h4>Status : {this.state.status}</h4>
-        {this.state.file && (
-          <img
-            src={this.state.file}
-            alt="temp"
-            id="temp-image"
-            style={{
-              maxWidth: "400px",
-              width: "80vw",
-              opacity: 0,
-              position: "absolute",
-              zIndex: "-1",
-              PointerEvent: "none",
-            }}
-          />
-        )}
-        {this.state.loaded && (
-          <input type="file" accept="image/*" onChange={this.handleFile} />
-        )}
-        {this.state.ready && (
-          <div>
-            <div style={{ maxWidth: "400px", width: "80vw" }}>
-              <ReactCrop
-                src={this.state.file}
-                crop={this.state.crop}
-                onChange={(newCrop) => this.setState({ crop: newCrop })}
-              />
-            </div>
-            <button>Crop</button>
+  return (
+    <center>
+      <h4>Status : {status}</h4>
+
+      {loaded && <input type="file" accept="image/*" onChange={handleFile} />}
+      {ready && (
+        <div>
+          <div style={{ maxWidth: "400px", width: "80vw" }}>
+            <ReactCrop
+              onImageLoaded={setImage}
+              src={file}
+              crop={crop}
+              onChange={(newCrop) => setCrop(newCrop)}
+            />
           </div>
-        )}
-      </center>
-    );
-  };
-}
+          <button onClick={getCroppedImg}>Crop</button>
+        </div>
+      )}
+      {file && (
+        <img
+          src={file}
+          alt="temp"
+          id="temp-image"
+          style={{
+            maxWidth: "400px",
+            width: "80vw",
+            opacity: 0,
+            position: "absolute",
+            zIndex: "-1",
+            PointerEvent: "none",
+          }}
+        />
+      )}
+    </center>
+  );
+};
 
 export default BadgeModule;
