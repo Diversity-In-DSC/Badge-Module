@@ -1,6 +1,7 @@
 {
   "name": "badgemodule",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@tensorflow-models/blazeface": "0.0.5",

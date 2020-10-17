@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "@tensorflow/tfjs-backend-cpu";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import frame from "../frame.png";
+import frame from "../Attendee-at-light.png";
 
 const blazeface = require("@tensorflow-models/blazeface");
 
@@ -10,11 +10,11 @@ const BadgeModule = () => {
   const [status, setStatus] = useState("Loading Model");
   const [loaded, setLoaded] = useState(false);
   const [ready, setReady] = useState(false);
+  const [success, setSuccess] = useState(null);
   const [file, setFile] = useState(null);
   const [crop, setCrop] = useState(null);
   const [image, setImage] = useState(null);
   let model;
-
   load();
 
   async function load() {
@@ -36,20 +36,35 @@ const BadgeModule = () => {
       document.querySelector("#temp-image"),
       false
     );
-    let result = results[0];
-    let x = parseFloat(result.topLeft[0]) - 50;
-    let y = parseFloat(result.topLeft[1]) - 50;
-    console.log(x, y);
-    setCrop({
-      x: x,
-      y: y,
-      aspect: 1,
-      width: 200,
-      height: 200,
-    });
+    if (results[0])
+    {
+      let result = results[0];
+      let x = parseFloat(result.topLeft[0]) - 50;
+      let y = parseFloat(result.topLeft[1]) - 50;
+      console.log(x, y);
+      setCrop({
+        x: x,
+        y: y,
+        aspect: 1,
+        width: 200,
+        height: 200,
+      });
 
-    setReady(true);
-    console.log(result);
+      setReady(true);
+    }
+    else {
+      alert("Can't detect your face")
+      setCrop({
+        x: 0,
+        y: 0,
+        aspect: 1,
+        width: 200,
+        height: 200,
+      });
+
+      setReady(true);
+    }
+   
   }
 
   const getCroppedImg = () => {
@@ -72,9 +87,6 @@ const BadgeModule = () => {
       crop.width,
       crop.height
     );
-
-    // As Base64 string
-    // setFile();
     setReady(false);
 
     let badge = document.getElementById("badge");
@@ -84,19 +96,19 @@ const BadgeModule = () => {
     let img = new Image();
 
     img.onload = () => {
+      badgectx.drawImage(img, 0, 0,badge.width, badge.height);
       badgectx.drawImage(frame, 0, 0, badge.width, badge.height);
-      badgectx.drawImage(img, 125, 90, 150, 150);
+      setSuccess(badge.toDataURL("image/jpeg"))
     };
     img.src = canvas.toDataURL("image/jpeg");
 
-    // As a blob
   };
 
   return (
     <center>
       <h4>Status : {status}</h4>
 
-      <canvas id="badge" width="400" height="400"></canvas>
+      <canvas id="badge" width="627" height="627"></canvas>
 
       {loaded && <input type="file" accept="image/*" onChange={handleFile} />}
       {ready && (
@@ -112,6 +124,7 @@ const BadgeModule = () => {
           <button onClick={getCroppedImg}>Crop</button>
         </div>
       )}
+      {success && <a download="myBadge.jpg" href={success}>Download</a>}
       {file && (
         <img
           src={file}
