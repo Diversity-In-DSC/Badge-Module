@@ -13,7 +13,7 @@
     <a href="/"><strong>Register for DSC WOW »</strong></a>
     <br />
     <br />
-    <a href="https://diversity-in-dsc.github.io/Badge-Module/">View Demo</a>
+    <a href="http://badge-maker.surge.sh/">View Demo</a>
     ·
     <a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
   </p>
