@@ -12,6 +12,7 @@ const BadgeModule = () => {
   const [loaded, setLoaded] = useState(false);
   const [ready, setReady] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [showLoader, setShowLoader] = useState(false);
   const [file, setFile] = useState(null);
   const [crop, setCrop] = useState(null);
   const [image, setImage] = useState(null);
@@ -21,6 +22,10 @@ const BadgeModule = () => {
   async function load() {
     model = await blazeface.load();
     setStatus("Model Loaded");
+
+    const style = 'font-weight: bold; font-size: 30px;color: yellow; text-shadow: 3px 3px 0 rgb(217,31,38) ;padding : 50px ';
+
+    console.log('%c Hi You have found an easter egg 🥚, now find a way to report this to us!', style);
     
     
     if (!loaded) {
@@ -54,7 +59,7 @@ const BadgeModule = () => {
       let result = results[0];
       let x = parseFloat(result.topLeft[0]) - 50;
       let y = parseFloat(result.topLeft[1]) - 50;
-      console.log(x, y);
+      // console.log(x, y);
       setCrop({
         x: x,
         y: y,
@@ -82,6 +87,7 @@ const BadgeModule = () => {
 
   const getCroppedImg = () => {
     setReady(false);
+    setShowLoader(false)
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
@@ -118,19 +124,25 @@ const BadgeModule = () => {
   };
 
   function uploadImage() {
+    setShowLoader(true)
     document.querySelector("input.profile-input").click();
   }
 
   return (
     <>
-      <header>DSC WOW</header>
+      <header>DSC WOW Badge Maker</header>
 
       <div className="main-container">
         <div className="input-panel">
 
-          <div class="input">
+          <div className="input">
             <label>Profile Picture</label>
+            <span>
             <button className="button" onClick={uploadImage}>Upload Image</button>
+              {showLoader && <div className="lds-ring"><div></div><div></div><div></div><div></div></div>}
+
+
+            </span>
             {loaded && <input type="file" accept="image/*" onChange={handleFile} className="profile-input" hidden />}
           </div>
 
@@ -139,13 +151,13 @@ const BadgeModule = () => {
           <h5>
             An AI Powered Badge Maker to automatically suggest crop region depending on the face location. <br/> <br />
             Powered by Tensorflow.js <br /> <br />
-            Build with ❤️ by DSC WOW
+            Build with ❤️ by DSC WOW Team
 
           </h5>
           
         </div>
 
-        <div class="preview-panel">     
+        <div className="preview-panel">     
 
           {ready && (
             <div>
@@ -160,7 +172,7 @@ const BadgeModule = () => {
               <button onClick={getCroppedImg} className="button">Crop</button>
             </div>
           )}
-          
+
           <canvas id="badge" width="500" height="500"></canvas>
       {file && (
         <img
@@ -181,7 +193,7 @@ const BadgeModule = () => {
           <img src={dumb_face} id="dumb-face" alt="" hidden />
           
 
-          {success && <div class="download-fab">
+          {success && <div className="download-fab">
             <a download="myBadge.jpg" href={success}>
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#fff">
               <path d="M0 0h24v24H0V0z" fill="none"></path>
