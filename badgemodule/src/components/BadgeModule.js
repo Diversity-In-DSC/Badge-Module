@@ -127,29 +127,41 @@ const BadgeModule = () => {
 
       <div className="main-container">
         <div className="input-panel">
-          <button className="button" onClick={uploadImage}>Upload Image</button>
-          {loaded && <input type="file" accept="image/*" onChange={handleFile} className="profile-input" hidden />}
-        </div>
 
-      {/* <h4>Status : {status}</h4> */}
-        <div class="preview-panel">
-          {/* <canvas width="500" height="500"></canvas> */}
-         <canvas id="badge" width="500" height="500"></canvas>
-      
-
-      {ready && (
-        <div>
-          <div style={{ maxWidth: "450px", width: "80vw" }}>
-            <ReactCrop
-              onImageLoaded={setImage}
-              src={file}
-              crop={crop}
-              onChange={(newCrop) => setCrop(newCrop)}
-              />
+          <div class="input">
+            <label>Profile Picture</label>
+            <button className="button" onClick={uploadImage}>Upload Image</button>
+            {loaded && <input type="file" accept="image/*" onChange={handleFile} className="profile-input" hidden />}
           </div>
-          <button onClick={getCroppedImg} className="button">Crop</button>
+
+
+          <h4>Status : {status}</h4>
+          <h5>
+            An AI Powered Badge Maker to automatically suggest crop region depending on the face location. <br/> <br />
+            Powered by Tensorflow.js <br /> <br />
+            Build with ❤️ by DSC WOW
+
+          </h5>
+          
         </div>
-      )}
+
+        <div class="preview-panel">     
+
+          {ready && (
+            <div>
+              <div style={{ maxWidth: "450px", width: "80vw" }}>
+                <ReactCrop
+                  onImageLoaded={setImage}
+                  src={file}
+                  crop={crop}
+                  onChange={(newCrop) => setCrop(newCrop)}
+                  />
+              </div>
+              <button onClick={getCroppedImg} className="button">Crop</button>
+            </div>
+          )}
+          
+          <canvas id="badge" width="500" height="500"></canvas>
       {file && (
         <img
         src={file}
