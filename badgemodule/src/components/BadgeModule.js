@@ -48,18 +48,24 @@ const BadgeModule = () => {
     setFile(URL.createObjectURL(e.target.files[0]));
     setTimeout(() => {
       run();
-    }, 100);
+    }, 1000);
   }
 
   async function run() {
     let img = document.querySelector("#temp-image")
+
+    if (img.width === 0 || img.height === 0)
+    {
+      toast.error("Something is wrong",{ position: "bottom-center",autoClose: 3000 })
+      return
+    }
   
     if (img.naturalWidth < 500 || img.naturalHeight < 500)
     {     
       toast.warn("Low resolution image, resizing badge to low dimensions")
       setCanvasDim({width:img.naturalWidth,height:img.naturalWidth})
      
-      }
+    }
     let results = await model.estimateFaces(
       img,
       false
@@ -142,8 +148,16 @@ const BadgeModule = () => {
 
   return (
     <>
+      
+      <div className={loaded ? "done" : "overlay"}>
+        <span>
+        <h3>Loading Model</h3>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </span>
+      </div>
+
          <ToastContainer
-        position="top-center"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -152,6 +166,7 @@ const BadgeModule = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        style={{ width: "200px",margin:"auto" }}
         />
       <header>DSC WOW Badge Maker</header>
 

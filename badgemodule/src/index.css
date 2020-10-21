@@ -139,6 +139,7 @@ header {
   padding: 36px 0;
   flex: 1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -199,4 +200,25 @@ canvas {
 .logo {
   width: 50%;
   bottom: 0;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 999999;
+  width: 100vw;
+  height: 100vh;
+  background: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e0e0e0;
+}
+.overlay span {
+  display: inline-flex;
+}
+.overlay .lds-ring div {
+  margin: 14px;
+}
+.done {
+  display: none;
 }
