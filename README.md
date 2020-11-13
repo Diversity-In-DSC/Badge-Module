@@ -10,10 +10,10 @@
   <p align="center">
     An AI vision based Badge Module!
     <br />
-    <a href="/"><strong>Register for DSC WOW »</strong></a>
+    <a href="https://dscwow.tech"><strong>Register for DSC WOW »</strong></a>
     <br />
     <br />
-    <a href="http://badge-maker.surge.sh/">View Demo</a>
+    <a href="https://badge.dscwow.tech">View Demo</a>
     ·
     <a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
   </p>
