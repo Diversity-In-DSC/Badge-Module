@@ -153,6 +153,7 @@ const BadgeModule = () => {
         <span>
         <h3>Loading Model</h3>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+
         </span>
       </div>
 
