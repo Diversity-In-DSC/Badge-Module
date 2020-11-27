@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="/">
-    <img src="assets/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://badge.dscwow.tech">
+    <img src="legacy/assets/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Badge Generator for DSC WOW</h3>
