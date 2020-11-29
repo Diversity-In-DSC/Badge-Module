@@ -17,7 +17,7 @@
     ·
     <a href="https://github.com/Diversity-In-DSC/Badge-Module/issues">Report Bug</a>
   </p>
-  <img src="https://github.com/Diversity-In-DSC/Badge-Module/blob/main/demo.jpg" alt="Logo" width="400" height="400" align="center">
+  <img src="https://github.com/Diversity-In-DSC/Badge-Module/blob/main/demo.png" alt="Logo">
 </p>
 
 <!-- TABLE OF CONTENTS -->
