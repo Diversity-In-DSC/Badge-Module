@@ -16,7 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-image-crop": "^8.6.5",
-    "react-scripts": "3.4.3",
+    "react-scripts": "5.0.1",
     "react-toastify": "^6.0.9"
   },
   "scripts": {
